@@ -1,0 +1,335 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "InsyDirectApi",
+    "version": "1.0.0",
+    "description": "InsInCloud Direct API",
+    "contact": {
+      "email": "ddimitrov@insincloud.com",
+      "name": "Daniel Dimitrov",
+      "url": "http://insincloud.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "/api",
+      "description": "Development server"
+    },
+    {
+      "url": "https://api.insincloud.com/v1/dir/",
+      "description": "Production Api server"
+    }
+  ],
+  "paths": {
+    "/user/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Login user",
+        "description": "Login user endpoint",
+        "operationId": "registerUser",
+        "requestBody": {
+          "description": "Created user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example":{
+                "email": "user@mail.bg",
+                "password": "123456"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "LogIn user",
+        "description": "LogIn user",
+        "operationId": "loginUser",
+        "requestBody": {
+          "description": "Created user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example":{
+                "email": "user@mail.bg",
+                "password": "123456"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "post": {
+        "summary": "Logout user",
+        "description": "Logout the currently logged user.",
+        "tags": [
+          "user"
+        ],
+        "operationId": "logoutUser",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/movies": {
+      "get": {
+        "summary": "Get favorit movies for user",
+        "description": "Get favorit movies for user.",
+        "tags": [
+          "user"
+        ],
+        "operationId": "getFavoriteMovies",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      }
+    }, 
+    "/user/movies/{id}/like": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "The insurance type id.",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],    
+      "post": {
+        "summary": "like Favorite Movie",
+        "description": "like Favorite Movie.",
+        "tags": [
+          "user"
+        ],
+        "operationId": "likeFavoriteMovie",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/user/movies/{id}/unlike": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "The insurance type id.",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],   
+      "post": {
+        "summary": "Get favorit movies for user",
+        "description": "Get favorit movies for user.",
+        "tags": [
+          "user"
+        ],
+        "operationId": "unlikeFavoriteMovie",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/movies": {
+      "get": {
+        "summary": "Get all movies",
+        "description": "Get all movies.",
+        "tags": [
+          "movie"
+        ],
+        "operationId": "getMovies",
+        "requestBody": {
+          "description": "Created user object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example":{
+                "title": "Rambo",
+                "yearMade": 1999,
+                "genres": ["action", "comedy"],
+              
+                "description": "very funny",
+              
+                "span": "120 minutes"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      },
+      "post": {
+        "summary": "create a movie.",
+        "description": "create a  movie.",
+        "tags": [
+          "movie"
+        ],
+        "operationId": "createMovie",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/movies/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "The insurance type id.",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],   
+      "get": {
+        "summary": "Get a movie",
+        "description": "Get all movie.",
+        "tags": [
+          "movie"
+        ],
+        "operationId": "getMovie",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "summary": "create a movie.",
+        "description": "create a  movie.",
+        "tags": [
+          "movie"
+        ],
+        "operationId": "updateMovie",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete a movie.",
+        "description": "delete a  movie.",
+        "tags": [
+          "movie"
+        ],
+        "operationId": "deleteMovie",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          },
+          "401": {
+            "description": "Not authenticated",
+            "content": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "jdoe@example.com"
+          }
+        }
+      }
+    }
+  }
+}
