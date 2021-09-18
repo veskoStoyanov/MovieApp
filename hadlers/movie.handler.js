@@ -7,57 +7,30 @@ const {
 	removeMovie,
 } = require('../controllers/movie.controller');
 
-const getMovies = async (req, res, next) => {
-	passport.authenticate(
-		'jwt-strategy',
-		{ session: false },
-		async (err, user) => {
-			if (err) {
-				return next(err);
-			}
+const getMovies = async (_, res) => {
+	let movies = [];
 
-			if (!user) {
-				return res.status(400).json({ errors: [err] });
-			}
-			let movies = [];
+	try {
+		movies = await getAllMovies();
+	} catch (e) {
+		console.log(e);
+		return res.status(400).json({ success: false, errors: [''] });
+	}
 
-			try {
-				movies = await getAllMovies();
-			} catch (e) {
-				console.log(e);
-				return res.status(400).json({ success: false, errors: [''] });
-			}
-
-			return res.status(200).json(movies);
-		}
-	)(req, res, next);
+	return res.status(200).json(movies);
 };
 
-const getMovie = async (req, res, next) => {
-	passport.authenticate(
-		'jwt-strategy',
-		{ session: false },
-		async (err, user) => {
-			if (err) {
-				return next(err);
-			}
+const getMovie = async (req, res) => {
+	let movie = null;
+	
+	try {
+		movie = await getMovieById(req.params.id);
+	} catch (e) {
+		console.log(e);
+		return res.status(400).json({ success: false, errors: [''] });
+	}
 
-			if (!user) {
-				return res.status(400).json({ errors: [err] });
-			}
-
-			let movie = null;
-
-			try {
-				movie = await getMovieById(req.params.id);
-			} catch (e) {
-				console.log(e);
-				return res.status(400).json({ success: false, errors: [''] });
-			}
-
-			return res.status(200).json(movie);
-		}
-	)(req, res, next);
+	return res.status(200).json(movie);
 };
 
 const createMovie = async (req, res, next) => {

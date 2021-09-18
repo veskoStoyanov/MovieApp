@@ -40,6 +40,7 @@ const likeMovie = async (userId, movieId) => {
 
 		return { userMovies: user.movies };
 	} catch (e) {
+		console.log(e);
 		return { error: e };
 	}
 };

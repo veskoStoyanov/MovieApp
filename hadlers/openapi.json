@@ -1,13 +1,13 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "InsyDirectApi",
+    "title": "MovieDirectApi",
     "version": "1.0.0",
-    "description": "InsInCloud Direct API",
+    "description": "Movie Direct API",
     "contact": {
-      "email": "ddimitrov@insincloud.com",
-      "name": "Daniel Dimitrov",
-      "url": "http://insincloud.com"
+      "email": "veskostoyanovv@abv.bg",
+      "name": "Vesko Stoyanov",
+      "url": "http://movie.com"
     },
     "license": {
       "name": "Apache 2.0",
@@ -20,7 +20,7 @@
       "description": "Development server"
     },
     {
-      "url": "https://api.insincloud.com/v1/dir/",
+      "url": "https://api.movie.com/v1/dir/",
       "description": "Production Api server"
     }
   ],
@@ -199,25 +199,6 @@
           "movie"
         ],
         "operationId": "getMovies",
-        "requestBody": {
-          "description": "Created user object",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              },
-              "example":{
-                "title": "Rambo",
-                "yearMade": 1999,
-                "genres": ["action", "comedy"],
-              
-                "description": "very funny",
-              
-                "span": "120 minutes"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "successful operation",
@@ -236,6 +217,25 @@
           "movie"
         ],
         "operationId": "createMovie",
+        "requestBody": {
+          "description": "all data needed",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example":{
+                "title": "Rambo",
+                "yearMade": 1999,
+                "genres": ["action", "comedy"],
+                "image": "https://dl.moviesr.net/images/cwLvN.jpg",
+                "description": "very funny",
+                "span": "120",
+                "url": "https://www.netflix.com/bg/"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "successful operation",

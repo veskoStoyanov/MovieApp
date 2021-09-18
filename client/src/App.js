@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { Switch, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { SearchScreen, HomeScreen, AuthScreen, MovieScreen, AdminScreen } from './screens';
+
+import { Header } from './components';
+
+const NotFound = () => (<div>Not Found</div>)
+
+const App = () => {
+	const { currentUser } = useSelector((state) => state.userState);
+	return (
+		<>
+			<Header />
+			<Switch>
+				<Route exact path="/" component={HomeScreen} />
+				<Route exact path="/search" component={SearchScreen} />
+				<Route exact path="/movies/:id" component={MovieScreen} />
+
+				{
+					!currentUser && <Route exact path="/auth/:type" component={AuthScreen} />
+				}
+
+				{
+					currentUser && currentUser.roles.includes('Admin') && <Route path="/admin/movies/:id" component={AdminScreen} />
+				}
+				<Route component={NotFound} />
+			</Switch>			
+		</>
+	);
+};
 
 export default App;

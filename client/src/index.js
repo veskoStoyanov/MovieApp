@@ -1,17 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import { render } from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Provider } from 'react-redux';
+
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+import { GlobalStyle } from './styles/GlobalStyles';
+import store from './store';
+
+const client = new QueryClient();
+
+// remove react string because of material Ui has some troubles
+render(
+	<Router>
+		<Provider store={store}>
+			<QueryClientProvider client={client}>
+				<GlobalStyle />
+				<App />
+			</QueryClientProvider>
+		</Provider>
+	</Router>,
+	document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

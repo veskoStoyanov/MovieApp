@@ -10,32 +10,27 @@ require('dotenv').config({
     path: './config/config.env'
 })
 
-// Core and Morgan
-if (process.env.NODE_ENV === 'development') {
-    app.use(cors({
-        origin: process.env.CLIENT_URL
-    }))
-    
-    app.use(morgan('dev'))
-}
+app.use(morgan('dev'))
+ app.use(cors())
 
-app.use((_, res, next) => {
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5000');
 
-    // Request methods you wish to allow
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+// app.use(function (req, res, next) {
+//     // Website you wish to allow to connect
+//     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
-    // Request headers you wish to allow
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//     // Request methods you wish to allow
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
-    res.setHeader('Access-Control-Allow-Credentials', true);
+//     // Request headers you wish to allow
+//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type', 'Authorization');
 
-    // Pass to next layer of middleware
-    next();
-});
+//     // Set to true if you need the website to include cookies in the requests sent
+//     // to the API (e.g. in case you use sessions)
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+
+//     // Pass to next layer of middleware
+//     next();
+// });
 
 // Connect to database
 const connectDB = require('./config/db')
@@ -47,13 +42,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // OpenApi
 require('./hadlers')(app);
-const apiSpec = require('./hadlers/openapi.json');
-app.use('/swagger', swaggerUi.serve, swaggerUi.setup(apiSpec, {
-	swaggerOptions: {
-		syntaxHighlight: false,
-		displayRequestDuration: true
-	}
-}));
+// const apiSpec = require('./hadlers/openapi.json');
+// app.use('/swagger', swaggerUi.serve, swaggerUi.setup(apiSpec, {
+// 	swaggerOptions: {
+// 		syntaxHighlight: false,
+// 		displayRequestDuration: true
+// 	}
+// }));
 
 // Passport Config
 require('./passport')(passport);
