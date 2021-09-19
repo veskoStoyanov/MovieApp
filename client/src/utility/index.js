@@ -27,3 +27,5 @@ export const makeRequest = (token, endpoint, method = 'GET', data) => {
 export const setUserToStorage = (user) => window.localStorage.setItem('user', JSON.stringify(user));
 
 export const getUserFromStorage = () => JSON.parse(window.localStorage.getItem('user'));
+
+export const removeUserFromStorage = () => window.localStorage.removeItem('user');

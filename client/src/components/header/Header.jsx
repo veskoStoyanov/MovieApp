@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 
 import { userActions } from '../../store/actions';
 
+import { removeUserFromStorage } from '../../utility';
+
 // Components
 import { Wrapper } from './Header.style';
 import Button from '@material-ui/core/Button';
@@ -18,6 +20,7 @@ const Header = () => {
 
     const handleLogout = () => {
         changeUserState({ user: null, token: '' });
+        removeUserFromStorage();
         history.push('/');
     };
 
