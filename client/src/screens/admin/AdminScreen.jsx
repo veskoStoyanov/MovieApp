@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // Components
@@ -23,6 +23,7 @@ const initialState = {
 
 const AdminScreen = () => {
     const { id } = useParams();
+    const history = useHistory();
     const { token } = useSelector((state) => state.userState);
 
     const [movie, setMovie] = useState(initialState);
@@ -45,6 +46,7 @@ const AdminScreen = () => {
     const handleUpdate = async () => {
         try {
             await makeRequest(token, `movies/${id}`, 'PUT', movie);
+            history.push('/search');
         } catch (e) {
             console.log(e);
         }

@@ -10,23 +10,6 @@ const createUser = (data = Object) => User.create(data);
 
 const getMovies = (id) => User.findById(id).populate('movies').select('movies');
 
-const unLikeMovie = async (userId, movieId) => {
-	try {
-		const user = await getUserById(userId);
-		user.movies = user.movies.filter((x) => x.toString() !== movieId);
-		user.markModified('movies');
-		await user.save();
-
-		const movie = await Movie.findById(movieId);
-		movie.rating--;
-		movie.save();
-
-		return { userMovies: user.movies };
-	} catch (e) {
-		return { error: e };
-	}
-};
-
 const likeMovie = async (userId, movieId) => {
 	try {
 		const user = await getUserById(userId);
@@ -41,6 +24,23 @@ const likeMovie = async (userId, movieId) => {
 		return { userMovies: user.movies };
 	} catch (e) {
 		console.log(e);
+		return { error: e };
+	}
+};
+
+const unLikeMovie = async (userId, movieId) => {
+	try {
+		const user = await getUserById(userId);
+		user.movies = user.movies.filter((x) => x.toString() !== movieId);
+		user.markModified('movies');
+		await user.save();
+
+		const movie = await Movie.findById(movieId);
+		movie.rating--;
+		movie.save();
+
+		return { userMovies: user.movies };
+	} catch (e) {
 		return { error: e };
 	}
 };

@@ -43,4 +43,22 @@ UserSchema.methods.matchPassword = async function (password) {
 
 const User = mongoose.model('User', UserSchema);
 
+User.seedAdminUser = async () => {
+    try {
+        let users = await User.find();
+
+        if (users.length) {
+			return;
+		}
+
+        return User.create({
+            email: 'admin@gmail.com',
+            password: 'admin',
+            roles: ['User', 'Admin']
+        });
+    } catch (e) {
+        console.log(e);
+    }
+};
+
 module.exports = User;

@@ -5,7 +5,12 @@ import Button from '@material-ui/core/Button';
 const Search = ({ setMovies, allMovies }) => {
     const [value, setValue] = useState('');
 
-    const handleSearch = (e) => setValue(e.target.value);
+    const handleSearch = (e) => {
+        if (!e.target.value) {
+            setMovies([ ...allMovies ]);
+        }
+        setValue(e.target.value);
+    }
 
     const handleSubmit = () => setMovies(allMovies.filter(x => x.title.toLowerCase().trim().startsWith(value.toLowerCase().trim())))
 

@@ -227,7 +227,7 @@
               "example":{
                 "title": "Rambo",
                 "yearMade": 1999,
-                "genres": ["action", "comedy"],
+                "genres": "action, comedy",
                 "image": "https://dl.moviesr.net/images/cwLvN.jpg",
                 "description": "very funny",
                 "span": "120",

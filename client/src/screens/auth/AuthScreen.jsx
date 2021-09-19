@@ -88,13 +88,13 @@ const Auth = () => {
                         <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
                         <FormControl>
                             <InputLabel htmlFor="my-input">Password</InputLabel>
-                            <Input name="password" onChange={handleChange} value={state.password} id="my-input" aria-describedby="my-helper-text" />
+                            <Input name="password" type="password" onChange={handleChange} value={state.password} id="my-input" aria-describedby="my-helper-text" />
                             <FormHelperText id="my-helper-text">We'll never share your password.</FormHelperText>
                         </FormControl>
                         {
                             type === 'register' && (<FormControl>
                                 <InputLabel htmlFor="my-input">re-Password</InputLabel>
-                                <Input name="rePassword" onChange={handleChange} value={state.rePassword} id="my-input" aria-describedby="my-helper-text" />
+                                <Input type="password" name="rePassword" onChange={handleChange} value={state.rePassword} id="my-input" aria-describedby="my-helper-text" />
                                 <FormHelperText id="my-helper-text">We'll never share your password.</FormHelperText>
                             </FormControl>)
                         }
