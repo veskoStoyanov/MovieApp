@@ -13,7 +13,7 @@ const MovieSchema = new mongoose.Schema({
 	genres: {
 		type: String,
 		required: true,
-		trim: true
+		trim: true,
 	},
 
 	description: {
@@ -24,10 +24,10 @@ const MovieSchema = new mongoose.Schema({
 
 	span: {
 		type: Number,
-		required: true
+		required: true,
 	},
 
-	rating: {
+	likes: {
 		type: Number,
 		default: 0,
 	},
@@ -40,6 +40,11 @@ const MovieSchema = new mongoose.Schema({
 	url: {
 		type: String,
 		trim: true,
+	},
+
+	rating: {
+		type: Array,
+		default: [],
 	},
 });
 

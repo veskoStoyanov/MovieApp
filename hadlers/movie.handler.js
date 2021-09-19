@@ -5,6 +5,7 @@ const {
 	addMovie,
 	editMovie,
 	removeMovie,
+	addMovieRating,
 } = require('../controllers/movie.controller');
 
 const getMovies = async (_, res) => {
@@ -22,7 +23,7 @@ const getMovies = async (_, res) => {
 
 const getMovie = async (req, res) => {
 	let movie = null;
-	
+
 	try {
 		movie = await getMovieById(req.params.id);
 	} catch (e) {
@@ -119,10 +120,38 @@ const deleteMovie = async (req, res, next) => {
 	)(req, res, next);
 };
 
+const updateMovieRating = async (req, res, next) => {
+	passport.authenticate(
+		'jwt-strategy',
+		{ session: false },
+		async (err, user) => {
+			if (err) {
+				return next(err);
+			}
+
+			if (!user) {
+				return res.status(400).json({ errors: [err] });
+			}
+
+			let movie = null;
+
+			try {
+				movie = await addMovieRating(req.params.id, req.body);
+			} catch (e) {
+				console.log(e);
+				return res.status(400).json({ success: false, errors: [''] });
+			}
+
+			return res.status(200).json(movie);
+		}
+	)(req, res, next);
+};
+
 module.exports = {
 	getMovies,
 	getMovie,
 	createMovie,
 	deleteMovie,
 	updateMovie,
+	updateMovieRating,
 };

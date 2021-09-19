@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button'
 import { makeRequest } from '../../utility';
 
 const Movie = ({ setMovies, movie, hide }) => {
-    console.log(movie);
     const dispatch = useDispatch();
 
     const { changeFavoriteMovies } = bindActionCreators(userActions, dispatch);

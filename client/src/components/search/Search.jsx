@@ -7,8 +7,9 @@ const Search = ({ setMovies, allMovies }) => {
 
     const handleSearch = (e) => {
         if (!e.target.value) {
-            setMovies([ ...allMovies ]);
+            setMovies([...allMovies]);
         }
+
         setValue(e.target.value);
     }
 

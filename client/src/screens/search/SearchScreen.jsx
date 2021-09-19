@@ -10,7 +10,7 @@ const SearchScreen = () => {
 
 	const initial = async () => {
 		const {data} = await makeRequest(null, 'movies');
-		console.log(data);
+
 		setMovies(data);
 		setAllMovies(data);
 	};

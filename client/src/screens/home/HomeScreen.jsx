@@ -17,16 +17,16 @@ const HomeScreen = () => {
     const history = useHistory();
     const dispatch = useDispatch();
 
-    const [movies, setMovie] = useState([]);
+    const [movies, setMovies] = useState([]);
 
-    const { currentUser, token, favoriteMovies } = useSelector((state) => state.userState);
+    const { currentUser, token } = useSelector((state) => state.userState);
     const { changeFavoriteMovies } = bindActionCreators(userActions, dispatch);
 
     const initial = async () => {
         try {
             const { data } = await makeRequest(token, 'user/movies');
             changeFavoriteMovies(data)
-            setMovie(data);
+            setMovies(data);
         } catch (e) {
             console.log(e);
         }
@@ -47,7 +47,7 @@ const HomeScreen = () => {
             <h2 className="title">Your Favorite</h2>
             <Container>
                 <div className="img-container" >
-                    {favoriteMovies?.map(movie => (
+                    {movies?.map(movie => (
                         <div key={movie._id}>
                             <Link to={`/movies/${movie._id}`}>
                                 <CardMedia
@@ -56,7 +56,6 @@ const HomeScreen = () => {
                                     height="100%"
                                     image={`${movie.image}`}
                                     alt="Paella dish"
-                                    key={movie._id}
                                 />
                             </Link>
                         </div>

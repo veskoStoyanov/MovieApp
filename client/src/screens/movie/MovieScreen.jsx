@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
-import { Wrapper } from './MovieScreen.style';
+import { useSelector } from 'react-redux';
 
 
 import { makeRequest } from '../../utility';
 
-import { Movie } from '../../components';
+import { Wrapper } from './MovieScreen.style';
+import { Movie, Rating } from '../../components';
 import Container from '@material-ui/core/Container';
 
 const MovieScreen = () => {
     const { id } = useParams();
+    const { currentUser } = useSelector((state) => state.userState);
     const [movie, setMovie] = useState(null);
 
     const initial = async () => {
@@ -33,6 +34,7 @@ const MovieScreen = () => {
     return (<Wrapper>
         <Container>
             <Movie hide={false} movie={movie} />
+            { currentUser && (<Rating id={movie._id} />)}
         </Container>
     </Wrapper>)
 };

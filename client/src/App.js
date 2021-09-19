@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { userActions } from './store/actions';
 
 // utils
-import { getUserFromStorage } from './utility';
+import { getUserFromStorage, makeRequest } from './utility';
 
 import {
 	SearchScreen,
@@ -23,11 +23,14 @@ const NotFound = () => <div>Not Found</div>;
 
 const App = () => {
 	const dispatch = useDispatch();
-	const { changeUserState } = bindActionCreators(userActions, dispatch);
+	const { changeUserState, changeFavoriteMovies } = bindActionCreators(
+		userActions,
+		dispatch
+	);
 
 	const { currentUser } = useSelector((state) => state.userState);
 
-	useEffect(() => {
+	const initial = async () => {
 		if (currentUser) {
 			return;
 		}
@@ -36,7 +39,18 @@ const App = () => {
 
 		if (user) {
 			changeUserState(user);
-		}
+
+			try {
+				const { data } = await makeRequest(user.token, 'user/movies');
+				changeFavoriteMovies(data);
+			} catch (e) {
+				console.log(e);
+			}
+		}		
+	};
+
+	useEffect(() => {
+		initial();
 	}, []);
 
 	return (

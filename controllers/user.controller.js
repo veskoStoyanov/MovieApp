@@ -18,7 +18,7 @@ const likeMovie = async (userId, movieId) => {
 		await user.save();
 
 		const movie = await Movie.findById(movieId);
-		movie.rating++;
+		movie.likes++;
 		await movie.save();
 
 		return { userMovies: user.movies };
@@ -36,7 +36,7 @@ const unLikeMovie = async (userId, movieId) => {
 		await user.save();
 
 		const movie = await Movie.findById(movieId);
-		movie.rating--;
+		movie.likes--;
 		movie.save();
 
 		return { userMovies: user.movies };

@@ -1,7 +1,7 @@
 const { Movie } = require('../models');
 
 // attention not to invoke movie controller into user controller circular dependency will occur
-const { unLikeMovie } = require('./user.controller');
+const { unLikeMovie, getUserById } = require('./user.controller');
 
 const getAllMovies = () => Movie.find();
 
@@ -33,10 +33,31 @@ const removeMovie = async (userId, movieId) => {
 	}
 };
 
+const addMovieRating = async (movieId, data) => {
+	try {
+		const movie = await Movie.findById(movieId);
+		const index = movie.rating.findIndex((rating) => rating.email === data.email);
+		console.log(index);
+
+		if (index > -1) {
+			movie.rating.splice(index, 1, data);
+		} else {
+			movie.rating.push(data)
+		}
+		
+		movie.markModified('rating');
+
+		return movie.save();
+	} catch (e) {
+		console.log(e);
+	}
+}
+
 module.exports = {
 	getAllMovies,
 	getMovieById,
 	addMovie,
 	editMovie,
 	removeMovie,
+	addMovieRating
 };

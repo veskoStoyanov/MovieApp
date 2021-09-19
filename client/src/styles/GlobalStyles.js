@@ -17,7 +17,7 @@ body {
    width: 100%;  
 }
 
-input:focus{
+input:focus, textarea:focus{
     outline: none;
 }
 `;
